@@ -23,7 +23,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="../src/day1.csproj" />
+    <ProjectReference Include="..\src\logic.csproj" />
   </ItemGroup>
 
 </Project>
