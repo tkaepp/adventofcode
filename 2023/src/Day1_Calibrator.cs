@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 
 namespace day1;
 
-public class Calibrator
+public class Day1_Calibrator
 {
-    public static int Day1_ConvertValue(string input)
+    public static int Day1_Part1_ConvertValue(string input)
     {
         var twoDigits = new int[2];
         var currentDigit = 0;
@@ -60,7 +60,7 @@ public class Calibrator
         return int.Parse(input);
     }
 
-    public static int Day2_ConvertValue(string input)
+    public static int Day1_Part2_ConvertValue(string input)
     {
         var regex = new Regex(
             "((?:[0-9])|(?:one)|(?:two)|(?:three)|(?:four)|(?:five)|(?:six)|(?:seven)|(?:eight)|(?:nine)).*((?:[0-9])|(?:one)|(?:two)|(?:three)|(?:four)|(?:five)|(?:six)|(?:seven)|(?:eight)|(?:nine))");
@@ -69,7 +69,7 @@ public class Calibrator
 
         if (regexResult.Success == false)
         {
-            return Day1_ConvertValue(input);
+            return Day1_Part1_ConvertValue(input);
         }
         
         var firstDigit = ConvertGroup(regexResult.Groups[1].ToString());
