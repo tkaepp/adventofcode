@@ -2,7 +2,7 @@ namespace test;
 
 using day1;
 
-public class CalibratorTest
+public class Day1_CalibratorTest
 {
     [Theory]
     [InlineData("1abc2", 12)]
@@ -11,7 +11,7 @@ public class CalibratorTest
     [InlineData("treb7uchet", 77)]
     public void Sample_Validation(string input, int expected)
     {
-        var result = Calibrator.ConvertValue(input);
+        var result = Calibrator.Day1_ConvertValue(input);
 
         Assert.Equal(expected, result);
     }

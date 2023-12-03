@@ -2,6 +2,9 @@
 
 using day1;
 
-var result = Input.List.Select(x => Calibrator.ConvertValue(x)).Sum();
+var resultDay1 = Input.ValuesToCalibrate.Select(Calibrator.Day1_ConvertValue).Sum();
 
-Console.WriteLine(result);
+Console.WriteLine(resultDay1);
+
+Console.WriteLine(Day2.Calculate(Input.ValuesToCalibrate));
+

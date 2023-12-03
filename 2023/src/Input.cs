@@ -2,7 +2,7 @@ namespace day1;
 
 public class Input
 {
-    public static string[] List =
+    public static string[] ValuesToCalibrate =
     {
         "cmpptgjc3qhcjxcbcqgqkxhrms",
         "9sixonefour",
