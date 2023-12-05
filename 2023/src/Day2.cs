@@ -4,15 +4,25 @@ namespace day1;
 
 public class Day2
 {
-    public record GameRecord(int GameId, bool IsPossible);
+    public record GameRecord(int GameId, bool IsPossible, int FewestRed, int FewestGreen, int FewestBlue)
+    {
+        public int CubesMultiplied => FewestRed * FewestGreen * FewestBlue;
+    };
 
     public record Reveal(int Red, int Green, int Blue);
 
     public static int Calculate_Part1(string[] inputs)
     {
         var games = inputs.Select(ConvertInput).Where(game => game.IsPossible).ToList();
-        
+
         return games.Sum(x => x.GameId);
+    }
+
+    public static int Calculate_Part2(string[] inputs)
+    {
+        var games = inputs.Select(ConvertInput).ToList();
+
+        return games.Sum(x => x.CubesMultiplied);
     }
 
     public static Reveal ConvertReveal(string input)
@@ -48,14 +58,18 @@ public class Day2
         var colonIndex = input.IndexOf(":", StringComparison.Ordinal);
 
         var revealStrings = input.Substring(colonIndex + 2, input.Length - 2 - colonIndex);
-        
+
         var cubeReveals = revealStrings
             .Split(";")
             .Select(ConvertReveal)
             .ToArray();
         
-        Console.Write($"game: {gameId} ");
-        return new GameRecord(gameId, IsGamePossible(cubeReveals));
+        return new GameRecord(
+            gameId,
+            IsGamePossible(cubeReveals),
+            cubeReveals.Where(x => x.Red > 0).Max(c => c.Red),
+            cubeReveals.Where(x => x.Green > 0).Max(c => c.Green),
+            cubeReveals.Where(x => x.Blue > 0).Max(c => c.Blue));
     }
 
     public static int GetGameId(string input)
