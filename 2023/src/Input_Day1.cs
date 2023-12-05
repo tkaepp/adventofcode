@@ -1,6 +1,6 @@
 namespace day1;
 
-public partial class Input_Day1
+public partial class Input
 {
     public static string[] Day1_ValuesToCalibrate =
     {
