@@ -4,6 +4,8 @@ namespace day1;
 
 public class Day3
 {
+    private static readonly double MaxDistance = Math.Sqrt(Math.Pow(0 - 1, 2) + Math.Pow(0 - 1, 2));
+
     enum CharType
     {
         Number,
@@ -13,15 +15,12 @@ public class Day3
 
     public record Vector(int X, int Y, int Length, int Value);
 
-    public record struct Symbol(int X, int Y);
+    public record struct Symbol(int X, int Y, char symbol);
 
     public static int Calculate_Part1(string input)
     {
-        var partNumbers = new HashSet<int>();
         int sum = 0;
         var (vectors, symbols) = Parse(input);
-
-        var maxDistance = Math.Sqrt(Math.Pow(0 - 1, 2) + Math.Pow(0 - 1, 2));
         
         foreach (var vector in vectors)
         {
@@ -30,12 +29,10 @@ public class Day3
                 /*
                  * Learn how to find the distance between two points by using the distance formula, which is an application of the Pythagorean theorem. We can rewrite the Pythagorean theorem as d=√((x_2-x_1)²+(y_2-y_1)²) to find the distance between any two points.
                  */
-                var distanceStart = Math.Sqrt(Math.Pow(vector.X + vector.Length - 1 - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
-                var distanceEnd = Math.Sqrt(Math.Pow(vector.X - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
-                
-                if ((distanceStart <= maxDistance) || (distanceEnd <= maxDistance)) // max diagonal
+                var (distanceStart, distanceEnd) = GetDistances(vector, symbol);
+
+                if (distanceStart <= MaxDistance || distanceEnd <= MaxDistance) // max diagonal
                 {
-                    partNumbers.Add(vector.Value);
                     sum += vector.Value;
                     break;
                 }
@@ -43,6 +40,13 @@ public class Day3
         }
         
         return sum;
+    }
+
+    private static (double distanceStart, double distanceEnd) GetDistances(Vector vector, Symbol symbol)
+    {
+        var distanceStart = Math.Sqrt(Math.Pow(vector.X - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
+        var distanceEnd = Math.Sqrt(Math.Pow(vector.X + vector.Length - 1 - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
+        return (distanceStart, distanceEnd);
     }
 
     public static (List<Vector> vectors, HashSet<Symbol> symbols) Parse(string input)
@@ -80,7 +84,7 @@ public class Day3
                         x = to - 1;
                         break;
                     case CharType.Special:
-                        symbols.Add(new(to, y));
+                        symbols.Add(new(to, y, line[to]));
                         x = to;
                         break;
                     case CharType.EOL:
@@ -105,6 +109,15 @@ public class Day3
 
     public static int Calculate_Part2(string input)
     {
+        int sum = 0;
+        var (vectors, allSymbols) = Parse(input);
+        var starSymbols = allSymbols.Where(s => s.symbol == '*');
+        
+        
+        
+        
+        // gear ratio: multiply both part numbers
+        // solution: sum of all gear ratio
         return 0;
     }
 }
