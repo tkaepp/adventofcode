@@ -17,7 +17,7 @@ public class Day3
 
     public static int Calculate_Part1(string input)
     {
-        var partNumbers = new List<int>();
+        var partNumbers = new HashSet<int>();
         int sum = 0;
         var (vectors, symbols) = Parse(input);
 
@@ -35,6 +35,11 @@ public class Day3
                 
                 if ((distanceStart <= maxDistance) || (distanceEnd <= maxDistance)) // max diagonal
                 {
+                    if (partNumbers.Contains(vector.Value))
+                    {
+                        int a = 0;
+                        a++;
+                    }
                     partNumbers.Add(vector.Value);
                     sum += vector.Value;
                     break;
@@ -51,7 +56,7 @@ public class Day3
         var symbols = new HashSet<Symbol>();
 
         char[] numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        char[] specialChars = { '"', '*', '/', '=', '+', '%', '@', '#', '&', '-', '$' };
+        char[] specialChars = { '*', '/', '=', '+', '%', '@', '#', '&', '-', '$' };
 
         // convert string into 2D-Array
         var split = input.Split(Environment.NewLine);
