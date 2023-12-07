@@ -2,10 +2,10 @@ namespace test;
 
 using day1;
 
-public class Day3_PuzzleTests
+public class Day3_GearTests
 {
     [Fact]
-    public void Result_Part1_Validation()
+    public void Result_Part2_Validation()
     {
         var input = @"467..114..
 ...*......

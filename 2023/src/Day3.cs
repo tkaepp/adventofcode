@@ -21,7 +21,7 @@ public class Day3
     {
         int sum = 0;
         var (vectors, symbols) = Parse(input);
-        
+
         foreach (var vector in vectors)
         {
             foreach (var symbol in symbols)
@@ -38,7 +38,7 @@ public class Day3
                 }
             }
         }
-        
+
         return sum;
     }
 
@@ -113,11 +113,29 @@ public class Day3
         var (vectors, allSymbols) = Parse(input);
         var starSymbols = allSymbols.Where(s => s.symbol == '*');
         
-        
-        
-        
+        foreach (var symbol in starSymbols)
+        {
+            var gearVectors = new List<Vector>();
+            
+            foreach (var vector in vectors)
+            {
+                var (distanceStart, distanceEnd) = GetDistances(vector, symbol);
+
+                if (distanceStart <= MaxDistance || distanceEnd <= MaxDistance) // max diagonal
+                {
+                    gearVectors.Add(vector);
+                }
+            }
+
+            if (gearVectors.Count == 2)
+            {
+                var gearRatio = gearVectors[0].Value * gearVectors[1].Value;
+                sum += gearRatio;
+            }
+        }
+
         // gear ratio: multiply both part numbers
         // solution: sum of all gear ratio
-        return 0;
+        return sum;
     }
 }
