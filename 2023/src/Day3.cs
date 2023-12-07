@@ -30,16 +30,11 @@ public class Day3
                 /*
                  * Learn how to find the distance between two points by using the distance formula, which is an application of the Pythagorean theorem. We can rewrite the Pythagorean theorem as d=√((x_2-x_1)²+(y_2-y_1)²) to find the distance between any two points.
                  */
-                var distanceStart = Math.Sqrt(Math.Pow(vector.X - vector.Length - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
+                var distanceStart = Math.Sqrt(Math.Pow(vector.X + vector.Length - 1 - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
                 var distanceEnd = Math.Sqrt(Math.Pow(vector.X - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
                 
                 if ((distanceStart <= maxDistance) || (distanceEnd <= maxDistance)) // max diagonal
                 {
-                    if (partNumbers.Contains(vector.Value))
-                    {
-                        int a = 0;
-                        a++;
-                    }
                     partNumbers.Add(vector.Value);
                     sum += vector.Value;
                     break;
@@ -81,7 +76,7 @@ public class Day3
                 switch (chartype)
                 {
                     case CharType.Number:
-                        vectors.Add(new(to, y, to - pos, Convert.ToInt32(line[pos..to])));
+                        vectors.Add(new(pos, y, to - pos, Convert.ToInt32(line[pos..to])));
                         x = to - 1;
                         break;
                     case CharType.Special:

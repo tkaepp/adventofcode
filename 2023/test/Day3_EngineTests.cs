@@ -26,7 +26,8 @@ public class Day3_PuzzleTests
     [Fact]
     public void Validate_FalsePositive_Part1_Validation()
     {
-        var input = @"....509.....=...........890...................&........9................./..847.154..568............@...102................280...*..........
+        var input = @"
+....509.....=...........890...................&........9................./..847.154..568............@...102................280...*..........
 .....*..950.67.............-......161.......530....=...................=............*...../..............@.......................426........";
 
         var result = Day3.Calculate_Part1(input);
@@ -45,6 +46,16 @@ public class Day3_PuzzleTests
         
         Assert.Equal(12, symbols.First().X);
         Assert.Equal(1, symbols.First().Y);
+        
+        Assert.Equal(4, vectors.First().X);
+        Assert.Equal(1, vectors.First().Y);
+        Assert.Equal(3, vectors.First().Length);
+        Assert.Equal(509, vectors.First().Value);
+        
+        Assert.Equal(55, vectors[2].X);
+        Assert.Equal(1, vectors[2].Y);
+        Assert.Equal(1, vectors[2].Length);
+        Assert.Equal(9, vectors[2].Value);
         
         // Assert.Equal(509+67+890+530+568+102+426, result);
     }
