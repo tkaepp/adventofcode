@@ -13,7 +13,7 @@ public class Day3
         EOL
     }
 
-    public record Vector(int X, int Y, int Length, int Value);
+    public record NumberCoordinates(int X, int Y, int Length, int Value);
 
     public record struct Symbol(int X, int Y, char symbol);
 
@@ -42,18 +42,18 @@ public class Day3
         return sum;
     }
 
-    private static (double distanceStart, double distanceEnd) GetDistances(Vector vector, Symbol symbol)
+    private static (double distanceStart, double distanceEnd) GetDistances(NumberCoordinates numberCoordinates, Symbol symbol)
     {
-        var distanceStart = Math.Sqrt(Math.Pow(vector.X - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
-        var distanceEnd = Math.Sqrt(Math.Pow(vector.X + vector.Length - 1 - symbol.X, 2) + Math.Pow(vector.Y - symbol.Y, 2));
+        var distanceStart = Math.Sqrt(Math.Pow(numberCoordinates.X - symbol.X, 2) + Math.Pow(numberCoordinates.Y - symbol.Y, 2));
+        var distanceEnd = Math.Sqrt(Math.Pow(numberCoordinates.X + numberCoordinates.Length - 1 - symbol.X, 2) + Math.Pow(numberCoordinates.Y - symbol.Y, 2));
         return (distanceStart, distanceEnd);
     }
 
-    public static (List<Vector> vectors, HashSet<Symbol> symbols) Parse(string input)
+    public static (List<NumberCoordinates> vectors, HashSet<Symbol> symbols) Parse(string input)
     {
-        var vectors = new List<Vector>();
+        var vectors = new List<NumberCoordinates>();
         var symbols = new HashSet<Symbol>();
-
+        
         char[] numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         char[] specialChars = { '*', '/', '=', '+', '%', '@', '#', '&', '-', '$' };
 
@@ -115,7 +115,7 @@ public class Day3
         
         foreach (var symbol in starSymbols)
         {
-            var gearVectors = new List<Vector>();
+            var gearVectors = new List<NumberCoordinates>();
             
             foreach (var vector in vectors)
             {
