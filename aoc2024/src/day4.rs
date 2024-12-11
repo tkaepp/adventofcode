@@ -6,7 +6,7 @@ pub fn part1_sample() -> Result<()> {
     let filename = "input/d4-1-sample.txt";
     let filecontent = read_to_string(filename)?;
 
-    let mut puzzle: [char; 10 * 10] = ['.'; 10 * 10];
+    let mut puzzle: Vec<Vec<char>>;
     const BOUNDRY: usize = 10;
     readfile(filecontent, &mut puzzle);
 
@@ -17,7 +17,7 @@ pub fn part1_sample() -> Result<()> {
         for j in 0..10 {
             // read right i..i+4
             let current = xy(i, j);
-            if let Some(search) = right(&puzzle, current, BOUNDRY * (i+1)){
+            if let Some(search) = right(&puzzle, current, BOUNDRY * (i + 1)) {
                 if search.eq(&xmas) {
                     println!("XMAS found");
                     xmas_counter += 1;
@@ -53,33 +53,25 @@ pub fn part1_sample() -> Result<()> {
     Ok(())
 }
 
-fn right(puzzle: &[char], current: usize, boundry: usize) -> Option<[char; 4]> {
-    
-    if current + 4 > boundry { 
+fn right(puzzle: &Vec<Vec<char>>, current: usize, boundry: usize) -> Option<[char; 4]> {
+    if current + 4 > boundry {
         return None;
     }
 
     let asdf = puzzle[current..current + 4].as_ref();
-    
+
     Some(<[char; 4]>::try_from(asdf).unwrap())
 }
-
 
 fn xy(i: usize, j: usize) -> usize {
     i * 10 + j
 }
 
-fn readfile(filecontent: String, puzzle: &mut [char]) {
+fn readfile(filecontent: String, puzzle: &mut Vec<Vec<char>>) {
     let mut i = 0;
-    let mut j = 0;
-    for row in filecontent.lines() {
-        j = 0;
-        for c in row.chars() {
-            puzzle[i * 10 + j] = c;
 
-            j += 1;
-        }
-        i += 1;
+    for row in filecontent.lines() {
+        puzzle[i] = row.chars().collect();
     }
 }
 
